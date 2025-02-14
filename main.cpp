@@ -1,21 +1,36 @@
 #include <iostream>
 #include <string>
-// start
+
 using namespace std;
 
 class Player {
 
 private:
-    string name;
-    int health = 100;
-    int attackPower = 25;
-    int defensePower = 10;
-    int score = 0;
-    // this is a test
+    string player_name;
+    int player_health;
+    int player_attackPower;
+    int player_defensePower;
+    int player_score;
 
 
 public:
-    Player( );
+    Player(string name, int health, int attackPower, int defensePower, int score) {
+        player_name = name;
+        player_health = health;
+        player_attackPower = attackPower;
+        player_defensePower = defensePower;
+        player_score = score;
+    }
+
 
 };
 
+
+
+int main() {
+
+    string name;
+    cout << "Enter your name: " << endl;
+    return 0;
+
+}
