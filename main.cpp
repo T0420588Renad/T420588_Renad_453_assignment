@@ -12,18 +12,26 @@ private:
     int player_attackPower;
     int player_defensePower;
     int player_score;
+    vector<string> inventory;
 
 
 public:
-    //Constructor
+    // Constructor
     Player(string name, int health, int attackPower, int defensePower, int score): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score) {}
 
 
-//Get Methods
+    // Get Methods
     string getName() {
         return player_name;
     }
-//Set Methods
+    int getHealth() {
+        return player_health;
+    }
+    int getScore() {
+        return player_score;
+    }
+
+    // Set Methods
     void setHealth(int health) {
         player_health = health;
     }
@@ -39,6 +47,10 @@ public:
     void setScore(int score) {
         player_score = score;
     }
+    void addItem(string item) {
+        inventory.push_back(item);
+        cout << item << " added to inventory." << endl;
+    }
 
 };
 
@@ -48,12 +60,36 @@ private:
     string description;
     string choice1;
     string choice2;
+    string type;
+    int correctAnswer;
+    string itemName;
 
 public:
-    //Constructor
-    Scenario(string desc, string ch1, string ch2): description(desc), choice1(ch1), choice2(ch2){}
+    // Constructor (normal scenario)
+    Scenario(string desc, string ch1, string ch2, string n): description(desc), choice1(ch1), choice2(ch2), type(n), correctAnswer(0){}
 
-    void run_scenario() {
+    // Constructor (puzzle scenario)
+    Scenario(string desc, string ch1, string ch2, string puzzle, int answer): description(desc), choice1(ch1), choice2(ch2), type(puzzle), correctAnswer(answer){}
+
+    // Constructor (item collection scenario)
+    Scenario(string desc, string ch1, string ch2, string item, string itemName): description(desc), choice1(ch1), choice2(ch2), type(item), correctAnswer(0), itemName(itemName) {}
+
+
+    void puzzle_scenario(Player &player) {
+        cout << "Solve the puzzle: ";
+        int answer;
+        cin >> answer;
+        if (answer == correctAnswer) {
+            cout << "Correct answer! You get 10 points." << endl;
+            player.setScore(player.getScore() + 10);
+        }
+        else {
+            cout << "Wrong answer! You lose 10 points." << endl;
+            player.setScore(player.getScore() - 10);
+        }
+    }
+
+    void run_scenario(Player &player) {
         cout << endl << description << endl;
         cout << "1. " << choice1 << endl;
         cout << "2. " << choice2 << endl;
@@ -70,14 +106,22 @@ public:
         else {
             cout << "Invalid choice. Try again." << endl;
         }
+
+        if (type == "puzzle") {
+            puzzle_scenario(player);
+        }
+        else if (type == "item") {
+            cout << "You found an item!" << endl;
+            player.addItem(itemName);
+        }
     }
 };
 
 vector<Scenario> scenarios() {
-    vector<Scenario> scenario_list;
-    scenario_list.push_back(Scenario("One path lead to an abandoned warehouse, the other to a dark alley. Which path will you choose?", "Abandoned warehouse.", "Dark alley."))
-    ,Scenario("You find a door with a riddle: 'What is 6 + 9?'", "69", "15");
-    return scenario_list;
+    Scenario(),
+    Scenario(),
+    Scenario(),
+    Scenario()
 }
 
 
@@ -91,10 +135,11 @@ int main() {
     Player player = Player(name, 100, 25, 10, 0);
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
 
-    vector<Scenario> game_scenarios = scenarios();
-    for (auto& scenario : game_scenarios) {
-        scenario.run_scenario();
+    for (auto& scenario : scenarios) {
+        scenario.run_scenario(player);
     }
+
+    cout << "Your final score is: " << player.getScore() << endl;
 
     return 0;
 
