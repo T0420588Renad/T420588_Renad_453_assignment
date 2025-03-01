@@ -12,12 +12,13 @@ private:
     int player_attackPower;
     int player_defensePower;
     int player_score;
+    int player_lives;
     vector<string> inventory;
 
 
 public:
     // Constructor
-    Player(string name, int health, int attackPower, int defensePower, int score): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score) {}
+    Player(string name, int health, int attackPower, int defensePower, int score, int lives): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score), player_lives(lives) {}
 
 
     // Get Methods
@@ -35,6 +36,9 @@ public:
     }
     int getScore() {
         return player_score;
+    }
+    int getLives() {
+        return player_lives;
     }
     vector<string> getInventory() {
         return inventory;
@@ -56,9 +60,12 @@ public:
     void setScore(int score) {
         player_score = score;
     }
+    void setLives(int lives) {
+        player_lives = lives;
+    }
     void addItem(string item) {
         inventory.push_back(item);
-        cout << item << " added to inventory." << endl;
+        cout << item << " added to inventory." << endl << endl;
     }
     void displayStats() {
         cout << "Player: " << player_name << endl;
@@ -66,6 +73,7 @@ public:
         cout << "Attack Power: " << player_attackPower << endl;
         cout << "Defense Power: " << player_defensePower << endl;
         cout << "Score: " << player_score << endl;
+        cout << "Lives: " << player_lives << endl;
     }
 
 };
@@ -152,6 +160,15 @@ public:
         }
     }
 
+    void collect_items(Player &player) {
+        cout << "You found a " << itemName << endl;
+        player.addItem(itemName);
+        cout << "Current Inventory: " << endl;
+        for (const auto& item : player.getInventory()) {
+            cout << item << endl << endl;
+        }
+    }
+
     void run_scenario(Player &player) {
         cout << endl << description << endl;
         cout << "1. " << choice1 << endl;
@@ -161,17 +178,16 @@ public:
         cin >> choice;
 
         if (choice == 1) {
-            cout << "You chose: " << choice1 << endl;
+            cout << "You chose: " << choice1 << endl << endl;
             if (type == "puzzle") {
                 puzzle_scenario(player);
             }
             else if (type == "item") {
-                cout << "You found an item!" << endl;
-                player.addItem(itemName);
+                collect_items(player);
             }
         }
         else if (choice == 2) {
-            cout << "You chose: " << choice2 << endl;
+            cout << "You chose: " << choice2 << endl << endl;
         }
         else {
             cout << "Invalid choice. Try again." << endl;
@@ -198,8 +214,9 @@ int main() {
     string name;
     cout << "Enter your name: ";
     cin >> name;
-    Player player = Player(name, 100, 25, 10, 0);
+    Player player = Player(name, 100, 25, 10, 0, 3);
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
+
 
 
     vector<Enemy> enemies = {
@@ -222,6 +239,7 @@ int main() {
     };
 
     for (auto& scenario : scenarios) {
+        player.displayStats();
         scenario.run_scenario(player);
     }
 
