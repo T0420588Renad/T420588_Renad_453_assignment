@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -119,9 +120,6 @@ public:
         cout << "Attack Power: " << enemy_attackPower << endl;
         cout << "Defense Power: " << enemy_defensePower << endl;
     }
-
-
-
 };
 
 class Scenario {
@@ -145,6 +143,7 @@ public:
     Scenario(string desc, string ch1, string ch2, string item, string itemName): description(desc), choice1(ch1), choice2(ch2), type(item), itemName(itemName) {}
 
     // Constructor (combat scenario)
+    Scenario(string desc, string ch1, string ch2, string combat): description(desc), choice1(ch1), choice2(ch2), type(combat) {}
 
     void puzzle_scenario(Player &player) {
         cout << "Solve the puzzle: ";
@@ -169,6 +168,39 @@ public:
         }
     }
 
+    void combat_scenario(Player &player, Enemy &enemy) {
+        cout << "A battle has started between " << player.getName() << " and " << enemy.getName() << "!" << endl;
+
+        while (player.getHealth() > 0 && enemy.getHealth() > 0) {
+            int playerDamage = max(0, player.getAttackPower() - enemy.getDefensePower() + (rand() % 5));
+            int enemyDamage = max(0, enemy.getAttackPower() - player.getDefensePower() + (rand() % 5));
+
+            enemy.setHealth(enemy.getHealth() - playerDamage);
+            player.setHealth(player.getHealth() - enemyDamage);
+
+            cout << "You dealt " << playerDamage << " damage!" << endl;
+            cout << enemy.getName() << " dealt " << enemyDamage << " damage!" << endl;
+            cout << player.getName() << " Health: " << player.getHealth() << endl;
+            cout << enemy.getName() << " Health: " << enemy.getHealth() << endl;
+        }
+        if (player.getHealth() <= 0) {
+            cout << "You have been defeated!" << endl;
+            player.setLives(player.getLives() - 1);
+            if (player.getLives() <= 0) {
+                cout << "Game Over!" << endl;
+            }
+            else {
+                player.setHealth(100);
+                cout << "You lost a life. Remaining lives: " << player.getLives() << endl;
+            }
+        }
+        else {
+            cout << enemy.getName() << " has been defeated!" << endl;
+            player.setScore(player.getScore() + 20);
+            cout << "You earned 20 points!" << endl;
+        }
+    }
+
     void run_scenario(Player &player) {
         cout << endl << description << endl;
         cout << "1. " << choice1 << endl;
@@ -185,6 +217,9 @@ public:
             else if (type == "item") {
                 collect_items(player);
             }
+            else if (type == "combat") {
+                combat_scenario(player, enemy);
+            }
         }
         else if (choice == 2) {
             cout << "You chose: " << choice2 << endl << endl;
@@ -195,18 +230,6 @@ public:
 
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 int main() {
