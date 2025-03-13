@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -124,27 +126,47 @@ public:
 
 class Scenario {
 
-private:
+protected:
     string description;
     string choice1;
     string choice2;
-    string type;
-    int correctAnswer;
-    string itemName;
+    string scenarioType;
 
 public:
     // Constructor (normal scenario)
-    Scenario(string desc, string ch1, string ch2, string normal): description(desc), choice1(ch1), choice2(ch2), type(normal){}
+    Scenario(string desc, string ch1, string ch2, string type): description(desc), choice1(ch1), choice2(ch2), scenarioType(type) {}
 
-    // Constructor (puzzle scenario)
-    Scenario(string desc, string ch1, string ch2, string puzzle, int answer): description(desc), choice1(ch1), choice2(ch2), type(puzzle), correctAnswer(answer){}
+    virtual void run_scenario(Player &player) = 0;
+};
 
-    // Constructor (item collection scenario)
-    Scenario(string desc, string ch1, string ch2, string item, string itemName): description(desc), choice1(ch1), choice2(ch2), type(item), itemName(itemName) {}
+class Puzzle: public Scenario {
 
-    // Constructor (combat scenario)
-    Scenario(string desc, string ch1, string ch2, string combat): description(desc), choice1(ch1), choice2(ch2), type(combat) {}
+private:
+    int correctAnswer;
 
+public:
+    Puzzle(string desc, string ch1, string ch2, int ans): Scenario(desc, ch1, ch2, "puzzle"), correctAnswer(ans) {}
+
+    void run_scenario(Player &player) {
+        cout << endl << description << endl;
+        cout << "1. " << choice1 << endl;
+        cout << "2. " << choice2 << endl;
+
+        int choice;
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "You chose: " << choice1 << endl << endl;
+            puzzle_scenario(player);
+        }
+        else if (choice == 2) {
+            cout << "You chose: " << choice2 << endl << endl;
+        }
+        else {
+            cout << "Invalid choice. Try again." << endl;
+        }
+
+    }
     void puzzle_scenario(Player &player) {
         cout << "Solve the puzzle: ";
         int answer;
@@ -158,7 +180,36 @@ public:
             player.setScore(player.getScore() - 10);
         }
     }
+};
 
+class Item: public Scenario {
+
+private:
+    string itemName;
+
+public:
+    Item(string desc, string ch1, string ch2, string name): Scenario(desc, ch1, ch2, "item"), itemName(name) {}
+
+    void run_scenario(Player &player) {
+        cout << endl << description << endl;
+        cout << "1. " << choice1 << endl;
+        cout << "2. " << choice2 << endl;
+
+        int choice;
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "You chose: " << choice1 << endl << endl;
+            collect_items(player);
+        }
+        else if (choice == 2) {
+            cout << "You chose: " << choice2 << endl << endl;
+        }
+        else {
+            cout << "Invalid choice. Try again." << endl;
+        }
+
+    }
     void collect_items(Player &player) {
         cout << "You found a " << itemName << endl;
         player.addItem(itemName);
@@ -167,8 +218,37 @@ public:
             cout << item << endl << endl;
         }
     }
+};
 
-    void combat_scenario(Player &player, Enemy &enemy) {
+class Combat: public Scenario {
+
+private:
+    Enemy enemy;
+
+public:
+    Combat(string desc, string ch1, string ch2, Enemy tempEnemy): Scenario(desc, ch1, ch2, "combat"), enemy(tempEnemy) {}
+
+    void run_scenario(Player &player) {
+        cout << endl << description << endl;
+        cout << "1. " << choice1 << endl;
+        cout << "2. " << choice2 << endl;
+
+        int choice;
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "You chose: " << choice1 << endl << endl;
+            combat_scenario(player);
+        }
+        else if (choice == 2) {
+            cout << "You chose: " << choice2 << endl << endl;
+        }
+        else {
+            cout << "Invalid choice. Try again." << endl;
+        }
+
+    }
+    void combat_scenario(Player &player) {
         cout << "A battle has started between " << player.getName() << " and " << enemy.getName() << "!" << endl;
 
         while (player.getHealth() > 0 && enemy.getHealth() > 0) {
@@ -200,37 +280,7 @@ public:
             cout << "You earned 20 points!" << endl;
         }
     }
-
-    void run_scenario(Player &player) {
-        cout << endl << description << endl;
-        cout << "1. " << choice1 << endl;
-        cout << "2. " << choice2 << endl;
-
-        int choice;
-        cin >> choice;
-
-        if (choice == 1) {
-            cout << "You chose: " << choice1 << endl << endl;
-            if (type == "puzzle") {
-                puzzle_scenario(player);
-            }
-            else if (type == "item") {
-                collect_items(player);
-            }
-            else if (type == "combat") {
-                combat_scenario(player, enemy);
-            }
-        }
-        else if (choice == 2) {
-            cout << "You chose: " << choice2 << endl << endl;
-        }
-        else {
-            cout << "Invalid choice. Try again." << endl;
-        }
-
-    }
 };
-
 
 int main() {
 
@@ -239,32 +289,7 @@ int main() {
     cin >> name;
     Player player = Player(name, 100, 25, 10, 0, 3);
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
-
-
-
-    vector<Enemy> enemies = {
-        Enemy("Crablante", 80, 15, 5),
-        Enemy("Beast King", 120, 25, 10),
-        Enemy("Speed-o'-Sound Sonic", 100, 30, 20),
-        Enemy("Carnage Kabuto", 200, 40, 30),
-        Enemy("Deep Sea King", 180, 35, 25),
-        Enemy("Evil Natural Water", 220, 40, 30),
-        Enemy("Gouketsu", 250, 45, 35),
-        Enemy("Boros", 300, 50, 40)
-
-    };
-
-    vector<Scenario> scenarios = {
-        Scenario("You arrive at a crossroad. Do you go left or right?", "Left", "Right", "normal"),
-        Scenario("You find a mysterious scroll with a riddle: 'What is 7 + 5?'", "Try to solve it", "Ignore it", "puzzle", 12),
-        Scenario("You see a hidden chest. Do you open it?", "Open", "Leave it", "item", "Golden Key"),
-        Scenario("An ancient book asks: 'What is 6 / 2?'", "Try to solve it", "Ignore it", "puzzle", 3)
-    };
-
-    for (auto& scenario : scenarios) {
-        player.displayStats();
-        scenario.run_scenario(player);
-    }
+    player.displayStats();
 
     cout << "Your final score is: " << player.getScore() << endl;
 
