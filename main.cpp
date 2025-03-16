@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -142,10 +143,11 @@ public:
 class Puzzle: public Scenario {
 
 private:
-    int correctAnswer;
+    string puzzleType;
+    string correctAnswer;
 
 public:
-    Puzzle(string desc, string ch1, string ch2, int ans): Scenario(desc, ch1, ch2, "puzzle"), correctAnswer(ans) {}
+    Puzzle(string desc, string ch1, string ch2, string type, string answer): Scenario(desc, ch1, ch2, "puzzle"), puzzleType(type), correctAnswer(answer) {}
 
     void run_scenario(Player &player) {
         cout << endl << description << endl;
@@ -153,7 +155,16 @@ public:
         cout << "2. " << choice2 << endl;
 
         int choice;
-        cin >> choice;
+        bool validInput = false;
+        while (!validInput) {
+            cin >> choice;
+            if (choice == 1 || choice == 2) {
+                validInput = true;
+            }
+            else {
+                cout << "Invalid choice. Please enter 1 or 2." << endl;
+            }
+        }
 
         if (choice == 1) {
             cout << "You chose: " << choice1 << endl << endl;
@@ -162,21 +173,58 @@ public:
         else if (choice == 2) {
             cout << "You chose: " << choice2 << endl << endl;
         }
-        else {
-            cout << "Invalid choice. Try again." << endl;
-        }
-
     }
+
     void puzzle_scenario(Player &player) {
-        cout << "Solve the puzzle: ";
-        int answer;
-        cin >> answer;
+        if (puzzleType == "riddle") {
+            solve_riddle(player);
+        }
+        else if (puzzleType == "math") {
+            solve_math(player);
+        }
+        else if (puzzleType == "anagram") {
+            solve_anagram(player);
+        }
+    }
+    void solve_riddle(Player &player) {
+        string answer;
+        cin.ignore();
+        getline(cin, answer);
+        transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+        transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
         if (answer == correctAnswer) {
-            cout << "Correct answer! You get 10 points." << endl;
+            cout << "Correct! You earned 10 points!" << endl;
             player.setScore(player.getScore() + 10);
         }
         else {
-            cout << "Wrong answer! You lose 10 points." << endl;
+            cout << "Wrong answer! You lost 10 points." << endl;
+            player.setScore(player.getScore() - 10);
+        }
+    }
+    void solve_math(Player &player) {
+        int answer;
+        cin >> answer;
+        if (answer == stoi(correctAnswer)) {
+            cout << "Correct! You earned 10 points!" << endl;
+            player.setScore(player.getScore() + 10);
+        }
+        else {
+            cout << "Wrong answer! You lost 10 points." << endl;
+            player.setScore(player.getScore() - 10);
+        }
+    }
+    void solve_anagram(Player &player) {
+        string answer;
+        cin.ignore();
+        getline(cin, answer);
+        transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+        transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
+        if (answer == correctAnswer) {
+            cout << "Correct! You earned 10 points!" << endl;
+            player.setScore(player.getScore() + 10);
+        }
+        else {
+            cout << "Wrong answer! You lost 10 points." << endl;
             player.setScore(player.getScore() - 10);
         }
     }
@@ -186,9 +234,11 @@ class Item: public Scenario {
 
 private:
     string itemName;
+    int healthEffect;
+    int attackEffect;
 
 public:
-    Item(string desc, string ch1, string ch2, string name): Scenario(desc, ch1, ch2, "item"), itemName(name) {}
+    Item(string desc, string ch1, string ch2, string name, int hEffect, int aEffect): Scenario(desc, ch1, ch2, "item"), itemName(name), healthEffect(hEffect), attackEffect(aEffect) {}
 
     void run_scenario(Player &player) {
         cout << endl << description << endl;
@@ -196,7 +246,16 @@ public:
         cout << "2. " << choice2 << endl;
 
         int choice;
-        cin >> choice;
+        bool validInput = false;
+        while (!validInput) {
+            cin >> choice;
+            if (choice == 1 || choice == 2) {
+                validInput = true;
+            }
+            else {
+                cout << "Invalid choice. Please enter 1 or 2." << endl;
+            }
+        }
 
         if (choice == 1) {
             cout << "You chose: " << choice1 << endl << endl;
@@ -205,10 +264,6 @@ public:
         else if (choice == 2) {
             cout << "You chose: " << choice2 << endl << endl;
         }
-        else {
-            cout << "Invalid choice. Try again." << endl;
-        }
-
     }
     void collect_items(Player &player) {
         cout << "You found a " << itemName << endl;
@@ -216,6 +271,14 @@ public:
         cout << "Current Inventory: " << endl;
         for (const auto& item : player.getInventory()) {
             cout << item << endl << endl;
+        }
+        if (healthEffect != 0) {
+            cout << "Your Health increased by: " << healthEffect << endl;
+            player.setHealth(player.getHealth() + healthEffect);
+        }
+        if (attackEffect != 0) {
+            cout << "Your Attack Power increased by: " << attackEffect << endl;
+            player.setAttackPower(player.getAttackPower() + attackEffect);
         }
     }
 };
@@ -234,7 +297,16 @@ public:
         cout << "2. " << choice2 << endl;
 
         int choice;
-        cin >> choice;
+        bool validInput = false;
+        while (!validInput) {
+            cin >> choice;
+            if (choice == 1 || choice == 2) {
+                validInput = true;
+            }
+            else {
+                cout << "Invalid choice. Please enter 1 or 2." << endl;
+            }
+        }
 
         if (choice == 1) {
             cout << "You chose: " << choice1 << endl << endl;
@@ -243,10 +315,6 @@ public:
         else if (choice == 2) {
             cout << "You chose: " << choice2 << endl << endl;
         }
-        else {
-            cout << "Invalid choice. Try again." << endl;
-        }
-
     }
     void combat_scenario(Player &player) {
         cout << "A battle has started between " << player.getName() << " and " << enemy.getName() << "!" << endl;
@@ -285,8 +353,17 @@ public:
 int main() {
 
     string name;
-    cout << "Enter your name: ";
-    cin >> name;
+    bool validInput = false;
+    while (!validInput) {
+        cout << "Enter your name: ";
+        cin >> name;
+        if (!name.empty()) {
+            validInput = true;
+        }
+        else {
+            cout << "Name cannot be empty. Type a name." << endl;
+        }
+    }
     Player player = Player(name, 100, 25, 10, 0, 3);
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
     player.displayStats();
