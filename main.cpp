@@ -138,6 +138,30 @@ public:
     Scenario(string desc, string ch1, string ch2, string type): description(desc), choice1(ch1), choice2(ch2), scenarioType(type) {}
 
     virtual void run_scenario(Player &player) = 0;
+
+    static vector<Scenario*> load_scenarios( const string& fileName) {
+        vector<Scenario*> scenarios;
+        fstream file(fileName);
+        if (!file) {
+            cerr << "Error opening file: " << fileName << endl;
+        }
+        else {
+            string line;
+            getline(file, line);
+            while (getline(file, line)) {
+                stringstream ss(line);
+                string tempDescription, tempCh1, tempCh2, tempType;
+                getline(ss, tempDescription, ',');
+                getline(ss, tempCh1, ',');
+                getline(ss, tempCh2, ',');
+                getline(ss, tempType, ',');
+                scenarios.emplace_back(tempDescription, tempCh1, tempCh2, tempType);
+
+            }
+        }
+        file.close();
+        return scenarios;
+    }
 };
 
 class Puzzle: public Scenario {
@@ -369,6 +393,11 @@ int main() {
     player.displayStats();
 
     cout << "Your final score is: " << player.getScore() << endl;
+
+    vector<Scenario*> scenarios = Scenario::load_scenarios("scenarios.csv");
+    for (Scenario* scenario : scenarios) {
+        scenario->run_scenario(player);
+    }
 
     return 0;
 
