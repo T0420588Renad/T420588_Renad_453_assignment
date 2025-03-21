@@ -3,6 +3,8 @@
 //
 
 #include "Enemy.h"
+#include <fstream>
+#include <sstream>
 #include <iostream>
 
 using namespace std;
@@ -39,3 +41,29 @@ void Enemy::displayStats() {
     cout << "Attack Power: " << enemy_attackPower << endl;
     cout << "Defense Power: " << enemy_defensePower << endl;
 }
+
+
+vector<Enemy> Enemy::load_enemies(string fileName) {
+    vector<Enemy> enemies;
+    fstream file(fileName);
+    if (!file) {
+        cerr << "Error opening file: " << fileName << endl;
+    }
+    else {
+        string line;
+        getline(file, line);
+        while (getline(file, line)) {
+            stringstream ss(line);
+            string name, health, attackPower, defensePower;
+            getline(ss, name, ',');
+            getline(ss, health, ',');
+            getline(ss, attackPower, ',');
+            getline(ss, defensePower, ',');
+            int enemy_health = stoi(health);
+            int enemy_attackPower = stoi(attackPower);
+            int enemy_defensePower = stoi(defensePower);
+            enemies.emplace_back(name, enemy_health, enemy_attackPower, enemy_defensePower);
+        }
+    }
+}
+

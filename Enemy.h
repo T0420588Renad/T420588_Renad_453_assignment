@@ -6,6 +6,7 @@
 #define ENEMY_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -31,6 +32,8 @@ public:
     void setAttackPower(int attackPower);
     void setDefensePower(int defensePower);
     void displayStats();
+
+    static vector<Enemy> load_enemies(string fileName);
 };
 
 #endif //ENEMY_H

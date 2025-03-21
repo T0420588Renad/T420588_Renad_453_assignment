@@ -30,6 +30,10 @@ int main() {
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
     player.displayStats();
 
+    vector<Enemy> enemies = Enemy::load_enemies("enemy.csv");
+    vector<Scenario*> scenarios = Scenario::load_scenarios("scenario.csv");
+
+
     cout << "Your final score is: " << player.getScore() << endl;
 
     return 0;

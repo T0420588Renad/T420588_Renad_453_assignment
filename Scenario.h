@@ -24,6 +24,8 @@ public:
 
     virtual void run_scenario(Player &player) = 0;
 
+    static vector<Scenario*> load_scenarios(string fileName);
+
 
 };
 #endif //SCENARIO_H
