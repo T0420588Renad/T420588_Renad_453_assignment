@@ -6,6 +6,8 @@
 #define ITEM_H
 
 #include <string>
+#include <fstream>
+#include <sstream>
 #include "Scenario.h"
 #include "Player.h"
 
@@ -17,10 +19,12 @@ private:
     string itemName;
     int healthEffect;
     int attackEffect;
+    int defenseEffect;
 
 public:
-    Item(string desc, string ch1, string ch2, string name, int hEffect, int aEffect);
+    Item(string id, string desc, string ch1, string ch2, string name, int hEffect, int aEffect, int dEffect);
 
+    vector<Scenario*> load_scenarios(string fileName);
     void run_scenario(Player &player);
     void collect_items(Player &player);
 

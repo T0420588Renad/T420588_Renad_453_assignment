@@ -26,13 +26,18 @@ int main() {
             cout << "Name cannot be empty. Type a name." << endl;
         }
     }
+
     Player player = Player(name, 100, 25, 10, 0, 3);
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
     player.displayStats();
 
     vector<Enemy> enemies = Enemy::load_enemies("enemy.csv");
-    vector<Scenario*> scenarios = Scenario::load_scenarios("scenario.csv");
 
+    vector<Scenario*> puzzles = Puzzle::load_scenarios("puzzles.csv");
+
+    for (Scenario* scenario : puzzles) {
+        scenario->run_scenario(player);
+    }
 
     cout << "Your final score is: " << player.getScore() << endl;
 

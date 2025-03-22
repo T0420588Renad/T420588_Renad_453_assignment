@@ -5,11 +5,13 @@
 #include "Puzzle.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
 
-Puzzle::Puzzle(string desc, string ch1, string ch2, string type, string answer): Scenario(desc, ch1, ch2, "puzzle"), puzzleType(type), correctAnswer(answer) {}
+Puzzle::Puzzle(string id, string desc, string ch1, string ch2, string type, string answer): Scenario(id, desc, ch1, ch2), puzzleType(type), correctAnswer(answer) {}
 
 void Puzzle::run_scenario(Player &player) {
     cout << endl << description << endl;
@@ -91,3 +93,30 @@ void Puzzle::solve_anagram(Player &player) {
     }
 }
 
+vector<Scenario*> Puzzle::load_scenarios(string fileName) {
+    vector<Scenario*> puzzles;
+    fstream file(fileName);
+    if (!file) {
+        cerr << "Error opening file: " << fileName << endl;
+    }
+    else {
+        string line;
+        getline(file, line);
+        while (getline(file, line)) {
+            stringstream ss(line);
+            string id, desc, ch1, ch2, type, answer;
+            getline(ss, id, ',');
+            getline(ss, desc, ',');
+            getline(ss, ch1, ',');
+            getline(ss, ch2, ',');
+            getline(ss, type, ',');
+            getline(ss, answer, ',');
+
+            if (id[0] == 'p') {
+                puzzles.push_back(new Puzzle(id, desc, ch1, ch2, type, answer));
+            }
+        }
+        file.close();
+        return puzzles;
+    }
+}
