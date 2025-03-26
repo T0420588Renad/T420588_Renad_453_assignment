@@ -11,32 +11,11 @@
 using namespace std;
 
 
-Puzzle::Puzzle(string id, string desc, string ch1, string ch2, string type, string answer): Scenario(id, desc, ch1, ch2), puzzleType(type), correctAnswer(answer) {}
+Puzzle::Puzzle(string id, string desc, string ch1, string next1, string ch2, string next2, string type, string answer): Scenario(id, desc, ch1, next1, ch2, next2), puzzleType(type), correctAnswer(answer) {}
 
 void Puzzle::run_scenario(Player &player) {
-    cout << endl << description << endl;
-    cout << "1. " << choice1 << endl;
-    cout << "2. " << choice2 << endl;
-
-    int choice;
-    bool validInput = false;
-    while (!validInput) {
-        cin >> choice;
-        if (choice == 1 || choice == 2) {
-            validInput = true;
-        }
-        else {
-            cout << "Invalid choice. Please enter 1 or 2." << endl;
-        }
-    }
-
-    if (choice == 1) {
-        cout << "You chose: " << choice1 << endl << endl;
-        puzzle_scenario(player);
-    }
-    else if (choice == 2) {
-        cout << "You chose: " << choice2 << endl << endl;
-    }
+    Scenario::run_scenario(player);
+    puzzle_scenario(player);
 }
 
 void Puzzle::puzzle_scenario(Player &player) {
@@ -93,9 +72,10 @@ void Puzzle::solve_anagram(Player &player) {
     }
 }
 
-vector<Scenario*> Puzzle::load_scenarios(string fileName) {
+/*vector<Scenario*> Puzzle::load_scenarios(string fileName) {
     vector<Scenario*> puzzles;
     fstream file(fileName);
+
     if (!file) {
         cerr << "Error opening file: " << fileName << endl;
     }
@@ -104,19 +84,16 @@ vector<Scenario*> Puzzle::load_scenarios(string fileName) {
         getline(file, line);
         while (getline(file, line)) {
             stringstream ss(line);
-            string id, desc, ch1, ch2, type, answer;
+            string id, type, answer;
             getline(ss, id, ',');
-            getline(ss, desc, ',');
-            getline(ss, ch1, ',');
-            getline(ss, ch2, ',');
             getline(ss, type, ',');
             getline(ss, answer, ',');
 
-            if (id[0] == 'p') {
-                puzzles.push_back(new Puzzle(id, desc, ch1, ch2, type, answer));
-            }
+
+            Puzzle* puzzle(new Puzzle(id, "", "", "", "", "", type, answer));
+            puzzles.push_back(puzzle);
         }
         file.close();
         return puzzles;
     }
-}
+}*/

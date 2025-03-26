@@ -22,9 +22,9 @@ private:
     int defenseEffect;
 
 public:
-    Item(string id, string desc, string ch1, string ch2, string name, int hEffect, int aEffect, int dEffect);
+    Item(string id, string desc, string ch1, string next1, string ch2, string next2, string name, int hEffect, int aEffect, int dEffect);
 
-    vector<Scenario*> load_scenarios(string fileName);
+    //vector<Scenario*> load_scenarios(string fileName);
     void run_scenario(Player &player);
     void collect_items(Player &player);
 

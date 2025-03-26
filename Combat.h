@@ -17,9 +17,9 @@ private:
     Enemy enemy;
 
 public:
-    Combat(string id, string desc, string ch1, string ch2, Enemy tempEnemy);
+    Combat(string id, string desc, string ch1, string next1, string ch2, string next2, Enemy tempEnemy);
 
-    vector<Scenario*> load_scenarios(string fileName);
+    //vector<Scenario*> load_scenarios(string fileName);
     void run_scenario(Player &player);
     void combat_scenario(Player &player);
 

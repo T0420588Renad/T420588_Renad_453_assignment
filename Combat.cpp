@@ -11,7 +11,7 @@
 using namespace std;
 
 
-Combat::Combat(string id, string desc, string ch1, string ch2, Enemy tempEnemy): Scenario(id, desc, ch1, ch2), enemy(tempEnemy) {}
+Combat::Combat(string id, string desc, string ch1, string next1, string ch2, string next2, Enemy tempEnemy): Scenario(id, desc, ch1, next1, ch2, next2), enemy(tempEnemy) {}
 
 void Combat::run_scenario(Player &player) {
     cout << endl << description << endl;
@@ -71,7 +71,7 @@ void Combat::combat_scenario(Player &player) {
     }
 }
 
-vector<Scenario*> Combat::load_scenarios(string fileName) {
+/*vector<Scenario*> Combat::load_scenarios(string fileName) {
     vector<Scenario*> combats;
     fstream file(fileName);
     if (!file) {
@@ -107,6 +107,6 @@ vector<Scenario*> Combat::load_scenarios(string fileName) {
         return combats;
     }
 }
-
+*/
 
 

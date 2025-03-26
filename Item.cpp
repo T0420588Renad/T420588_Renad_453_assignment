@@ -8,7 +8,7 @@
 using namespace std;
 
 
-Item::Item(string id, string desc, string ch1, string ch2, string name, int hEffect, int aEffect, int dEffect): Scenario(id, desc, ch1, ch2), itemName(name), healthEffect(hEffect), attackEffect(aEffect), defenseEffect(dEffect) {}
+Item::Item(string id, string desc, string ch1, string next1, string ch2, string next2, string name, int hEffect, int aEffect, int dEffect): Scenario(id, desc, ch1, next1, ch2, next2), itemName(name), healthEffect(hEffect), attackEffect(aEffect), defenseEffect(dEffect) {}
 
 void Item::run_scenario(Player &player) {
     cout << endl << description << endl;
@@ -52,7 +52,7 @@ void Item::collect_items(Player &player) {
     }
 }
 
-vector<Scenario*> Item::load_scenarios(string fileName) {
+/*vector<Scenario*> Item::load_scenarios(string fileName) {
     vector<Scenario*> items;
     fstream file(fileName);
     if (!file) {
@@ -76,10 +76,10 @@ vector<Scenario*> Item::load_scenarios(string fileName) {
             int dEffect = stoi(defenseEffect);
 
             if (id[0] == 'i') {
-                items.emplace_back(id, desc, ch1, ch2, name, hEffect, aEffect, dEffect);
+                items.emplace_back(new Item(id, desc, ch1, ch2, name, hEffect, aEffect, dEffect));
             }
         }
         file.close();
         return items;
     }
-}
+}*/

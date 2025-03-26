@@ -42,6 +42,8 @@ public:
     void setLives(int lives);
     void addItem(string item);
     void displayStats();
+    void saveToFile(string fileName);
+    static Player loadFromFile(string fileName);
 };
 
 #endif //PLAYER_H
