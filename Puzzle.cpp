@@ -11,7 +11,7 @@
 using namespace std;
 
 
-Puzzle::Puzzle(string id, string desc, string ch1, string next1, string ch2, string next2, string type, string answer): Scenario(id, desc, ch1, next1, ch2, next2), puzzleType(type), correctAnswer(answer) {}
+Puzzle::Puzzle(int id, string type, string desc, string ch1, int next1, string ch2, int next2, string ptype, string answer): Scenario(id, type, desc, ch1, next1, ch2, next2), puzzleType(ptype), correctAnswer(answer) {}
 
 void Puzzle::run_scenario(Player &player) {
     Scenario::run_scenario(player);
@@ -72,28 +72,3 @@ void Puzzle::solve_anagram(Player &player) {
     }
 }
 
-/*vector<Scenario*> Puzzle::load_scenarios(string fileName) {
-    vector<Scenario*> puzzles;
-    fstream file(fileName);
-
-    if (!file) {
-        cerr << "Error opening file: " << fileName << endl;
-    }
-    else {
-        string line;
-        getline(file, line);
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string id, type, answer;
-            getline(ss, id, ',');
-            getline(ss, type, ',');
-            getline(ss, answer, ',');
-
-
-            Puzzle* puzzle(new Puzzle(id, "", "", "", "", "", type, answer));
-            puzzles.push_back(puzzle);
-        }
-        file.close();
-        return puzzles;
-    }
-}*/

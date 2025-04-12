@@ -15,4 +15,7 @@ add_executable(T420588_Renad_453_assignment main.cpp
         Item.cpp
         Item.h
         Combat.cpp
-        Combat.h)
+        Combat.h
+        Game.cpp
+        Game.h
+)

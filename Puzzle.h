@@ -19,9 +19,8 @@ private:
     string correctAnswer;
 
 public:
-    Puzzle(string id, string desc, string ch1, string next1, string ch2, string next2, string type, string answer);
+    Puzzle(int id, string type, string desc, string ch1, int next1, string ch2, int next2, string ptype, string answer);
 
-    //vector<Scenario*> load_scenarios(string fileName);
     void run_scenario(Player &player);
     void puzzle_scenario(Player &player);
     void solve_riddle(Player &player);

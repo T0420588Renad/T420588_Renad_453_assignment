@@ -11,7 +11,7 @@
 using namespace std;
 
 
-Combat::Combat(string id, string desc, string ch1, string next1, string ch2, string next2, Enemy tempEnemy): Scenario(id, desc, ch1, next1, ch2, next2), enemy(tempEnemy) {}
+Combat::Combat(int id, string type, string desc, string ch1, int next1, string ch2, int next2, Enemy tempEnemy): Scenario(id, desc, type, ch1, next1, ch2, next2), enemy(tempEnemy) {}
 
 void Combat::run_scenario(Player &player) {
     cout << endl << description << endl;
@@ -70,43 +70,4 @@ void Combat::combat_scenario(Player &player) {
         cout << "You earned 20 points!" << endl;
     }
 }
-
-/*vector<Scenario*> Combat::load_scenarios(string fileName) {
-    vector<Scenario*> combats;
-    fstream file(fileName);
-    if (!file) {
-        cerr << "Error opening file: " << fileName << endl;
-    }
-    else {
-        string line;
-        getline(file, line);
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string id, desc, ch1, ch2, enemyStats;
-            getline(ss, id, ',');
-            getline(ss, desc, ',');
-            getline(ss, ch1, ',');
-            getline(ss, ch2, ',');
-            getline(ss, enemyStats, ',');
-
-            stringstream enemyStream(enemyStats);
-            string name, health, attackPower, defensePower;
-            getline(ss, name, ',');
-            getline(ss, health, ',');
-            getline(ss, attackPower, ',');
-            getline(ss, defensePower, ',');
-            int enemyHealth = stoi(health);
-            int enemyAttackPower = stoi(attackPower);
-            int enemyDefensePower = stoi(defensePower);
-
-            if (id[0] == 'c') {
-                combats.emplace_back(id, desc, ch1, ch2, name, enemyHealth, enemyAttackPower, enemyDefensePower);
-            }
-        }
-        file.close();
-        return combats;
-    }
-}
-*/
-
 

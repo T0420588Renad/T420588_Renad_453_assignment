@@ -8,7 +8,7 @@
 using namespace std;
 
 
-Item::Item(string id, string desc, string ch1, string next1, string ch2, string next2, string name, int hEffect, int aEffect, int dEffect): Scenario(id, desc, ch1, next1, ch2, next2), itemName(name), healthEffect(hEffect), attackEffect(aEffect), defenseEffect(dEffect) {}
+Item::Item(int id, string type, string desc, string ch1, int next1, string ch2, int next2, string name, int hEffect, int aEffect, int dEffect): Scenario(id, type, desc, ch1, next1, ch2, next2), itemName(name), healthEffect(hEffect), attackEffect(aEffect), defenseEffect(dEffect) {}
 
 void Item::run_scenario(Player &player) {
     cout << endl << description << endl;

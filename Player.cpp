@@ -64,33 +64,7 @@ void Player::displayStats() {
     cout << "Score: " << player_score << endl;
     cout << "Lives: " << player_lives << endl;
 }
-Player Player::loadFromFile(string fileName) {
-    string line;
-    fstream file(fileName);
-    if (!file) {
-        cerr << "Error opening file: " << fileName << endl;
-    }
-    else {
-        getline(file, line);
-        stringstream ss(line);
-        string tempName, tempHealth, tempAttack, tempDefense, tempScore, tempLives;
-        getline(ss, tempName, ',');
-        getline(ss, tempHealth, ',');
-        getline(ss, tempAttack, ',');
-        getline(ss, tempDefense, ',');
-        getline(ss, tempScore, ',');
-        getline(ss, tempLives, ',');
-        int health = stoi(tempHealth);
-        int attackPower = stoi(tempAttack);
-        int defensePower = stoi(tempDefense);
-        int score = stoi(tempScore);
-        int lives = stoi(tempLives);
 
-        file.close();
-        return Player(tempName, health, attackPower, defensePower, score, lives);
 
-    }
-
-}
 
 

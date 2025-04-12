@@ -13,18 +13,24 @@ using namespace std;
 class Scenario {
 
 protected:
-    string scenarioId;
+    int scenarioId;
+    string scenarioType;
     string description;
     string choice1;
-    string nextScenario1;
+    int nextScenario1;
     string choice2;
-    string nextScenario2;
+    int nextScenario2;
 
 public:
     // Constructor
-    Scenario(string id, string desc, string ch1, string next1, string ch2, string next2);
+    Scenario(int id, string type, string desc, string ch1, int next1, string ch2, int next2);
 
-    static vector<Scenario*> load_scenarios(string fileName);
+    string getDescription();
+    string getChoice1();
+    string getChoice2();
+    int getNextScenario1();
+    int getNextScenario2();
+    int getScenarioId();
     virtual void run_scenario(Player &player);
 
 

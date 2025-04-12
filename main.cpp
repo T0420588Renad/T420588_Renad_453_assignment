@@ -7,13 +7,14 @@
 #include "Puzzle.h"
 #include "Item.h"
 #include "Combat.h"
+#include "Game.h"
 
 using namespace std;
 
 
 
 int main() {
-
+    Game game;
     string name;
     bool validInput = false;
     while (!validInput) {
@@ -27,19 +28,17 @@ int main() {
         }
     }
 
-    string playerFile = "player.csv";
-    Player player = Player::loadFromFile(playerFile);
-
-    if (player.getName().empty()) {
-        cout << "Player not found." << endl;
-    }
-    else {
-        cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
-        player.displayStats();
-    }
+    Player player(name, 100, 25, 15, 0, 3);
 
 
-    vector<Enemy> enemies = Enemy::load_enemies("enemy.csv");
+    cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
+    player.displayStats();
+    game.load_scenarios("scenarios.csv");
+    game.startGame(&player);
+
+
+
+    //vector<Enemy> enemies = Enemy::load_enemies("enemy.csv");
 
     //vector<Scenario*> scenarios = Scenario::load_scenarios("scenarios.csv");
     //vector<Puzzle*> puzzles = Puzzle::load_scenarios("puzzles.csv");

@@ -91,6 +91,12 @@ build CMakeFiles/T420588_Renad_453_assignment.dir/Combat.cpp.obj: CXX_COMPILER__
   OBJECT_DIR = CMakeFiles\T420588_Renad_453_assignment.dir
   OBJECT_FILE_DIR = CMakeFiles\T420588_Renad_453_assignment.dir
 
+build CMakeFiles/T420588_Renad_453_assignment.dir/Game.cpp.obj: CXX_COMPILER__T420588_Renad_453_assignment_unscanned_Debug C$:/Users/renad/CLionProjects/7/T420588_Renad_453_assignment/Game.cpp || cmake_object_order_depends_target_T420588_Renad_453_assignment
+  DEP_FILE = CMakeFiles\T420588_Renad_453_assignment.dir\Game.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\T420588_Renad_453_assignment.dir
+  OBJECT_FILE_DIR = CMakeFiles\T420588_Renad_453_assignment.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target T420588_Renad_453_assignment
@@ -99,7 +105,7 @@ build CMakeFiles/T420588_Renad_453_assignment.dir/Combat.cpp.obj: CXX_COMPILER__
 #############################################
 # Link the executable T420588_Renad_453_assignment.exe
 
-build T420588_Renad_453_assignment.exe: CXX_EXECUTABLE_LINKER__T420588_Renad_453_assignment_Debug CMakeFiles/T420588_Renad_453_assignment.dir/main.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Player.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Enemy.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Scenario.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Puzzle.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Item.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Combat.cpp.obj
+build T420588_Renad_453_assignment.exe: CXX_EXECUTABLE_LINKER__T420588_Renad_453_assignment_Debug CMakeFiles/T420588_Renad_453_assignment.dir/main.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Player.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Enemy.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Scenario.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Puzzle.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Item.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Combat.cpp.obj CMakeFiles/T420588_Renad_453_assignment.dir/Game.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\T420588_Renad_453_assignment.dir
