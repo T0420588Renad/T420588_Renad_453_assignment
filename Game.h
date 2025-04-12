@@ -24,8 +24,9 @@ private:
 
 public:
     Game();
-    void load_scenarios(string fileName);
-    void startGame(Player* player);
+    static vector<Scenario*> load_scenarios(string fileName);
+    static vector<Puzzle*> load_puzzles(string fileName);
+    void startGame(Player player);
 
 };
 #endif //GAME_H

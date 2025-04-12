@@ -19,10 +19,11 @@ private:
     int player_score;
     int player_lives;
     vector<string> inventory;
+    int currentScenarioId;
 
 public:
     // Constructor
-    Player(string name, int health, int attackPower, int defensePower, int score, int lives);
+    Player(string name, int health, int attackPower, int defensePower, int score, int lives, int scenarioId);
 
 
     // Get Methods
@@ -33,6 +34,7 @@ public:
     int getScore();
     int getLives() ;
     vector<string> getInventory();
+    int getCurrentScenarioId();
 
     // Set Methods
     void setHealth(int health);
@@ -42,6 +44,7 @@ public:
     void setLives(int lives);
     void addItem(string item);
     void displayStats();
+    void setCurrentScenarioId(int scenarioId);
 };
 
 #endif //PLAYER_H

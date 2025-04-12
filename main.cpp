@@ -28,20 +28,12 @@ int main() {
         }
     }
 
-    Player player(name, 100, 25, 15, 0, 3);
-
+    Player player(name, 100, 25, 15, 0, 3,1);
 
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
     player.displayStats();
-    game.load_scenarios("scenarios.csv");
-    game.startGame(&player);
+    game.startGame(player);
 
-
-
-    //vector<Enemy> enemies = Enemy::load_enemies("enemy.csv");
-
-    //vector<Scenario*> scenarios = Scenario::load_scenarios("scenarios.csv");
-    //vector<Puzzle*> puzzles = Puzzle::load_scenarios("puzzles.csv");
 
     cout << "Your final score is: " << player.getScore() << endl;
 

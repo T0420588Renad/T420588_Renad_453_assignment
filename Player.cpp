@@ -8,7 +8,7 @@
 using namespace std;
 
 //Constructor
-Player::Player(string name, int health, int attackPower, int defensePower, int score, int lives): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score), player_lives(lives) {}
+Player::Player(string name, int health, int attackPower, int defensePower, int score, int lives, int scenarioId): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score), player_lives(lives), currentScenarioId(scenarioId) {}
 
 // Get Methods
 string Player::getName() {
@@ -32,6 +32,10 @@ int Player::getLives() {
 vector<string> Player::getInventory() {
     return inventory;
 }
+int Player::getCurrentScenarioId() {
+    return currentScenarioId;
+}
+
 
 // Set Methods
 void Player::setHealth(int health) {
@@ -64,6 +68,10 @@ void Player::displayStats() {
     cout << "Score: " << player_score << endl;
     cout << "Lives: " << player_lives << endl;
 }
+void Player::setCurrentScenarioId(int scenarioId) {
+    currentScenarioId = scenarioId;
+}
+
 
 
 

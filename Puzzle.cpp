@@ -31,10 +31,13 @@ void Puzzle::puzzle_scenario(Player &player) {
 }
 void Puzzle::solve_riddle(Player &player) {
     string answer;
-    cin.ignore();
+    cout << "Solve the riddle: " << getDescription() << endl;
+    cout << "Your answer: " << endl;
     getline(cin, answer);
+
     transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
     transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
+
     if (answer == correctAnswer) {
         cout << "Correct! You earned 10 points!" << endl;
         player.setScore(player.getScore() + 10);
@@ -46,7 +49,11 @@ void Puzzle::solve_riddle(Player &player) {
 }
 void Puzzle::solve_math(Player &player) {
     int answer;
+    cout << "Solve the math problem: " << getDescription() << endl;
+    cout << "Your answer: " << endl;
     cin >> answer;
+    cin.ignore();
+
     if (answer == stoi(correctAnswer)) {
         cout << "Correct! You earned 10 points!" << endl;
         player.setScore(player.getScore() + 10);
@@ -58,10 +65,13 @@ void Puzzle::solve_math(Player &player) {
 }
 void Puzzle::solve_anagram(Player &player) {
     string answer;
-    cin.ignore();
+    cout << "Solve the anagram: " << getDescription() << endl;
+    cout << "Your answer: " << endl;
     getline(cin, answer);
+
     transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
     transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
+
     if (answer == correctAnswer) {
         cout << "Correct! You earned 10 points!" << endl;
         player.setScore(player.getScore() + 10);
