@@ -35,7 +35,7 @@ int main() {
     game.startGame(player);
 
 
-    cout << "Your final score is: " << player.getScore() << endl;
+    //cout << "Your final score is: " << player.getScore() << endl;
 
     return 0;
 

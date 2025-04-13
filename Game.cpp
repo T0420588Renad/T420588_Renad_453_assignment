@@ -16,7 +16,6 @@ using namespace std;
 
 Game::Game() {
     scenarios = load_scenarios("scenarios.csv");
-    puzzles = load_puzzles("puzzles.csv");
 }
 
 vector<Scenario*> Game::load_scenarios(string fileName) {
@@ -32,7 +31,7 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
         getline(file, line);
         while (getline(file, line)) {
             stringstream ss(line);
-            string id, scenarioType, scenarioDescription, choice1, nextScenario1, choice2, nextScenario2;
+            string id, scenarioType, scenarioDescription, choice1, nextScenario1, choice2, nextScenario2, puzzleType, puzzleDescription, correctAnswer;
 
             getline(ss, id, ',');
             getline(ss, scenarioType, ',');
@@ -42,6 +41,13 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
             getline(ss, choice2, ',');
             getline(ss, nextScenario2, ',');
 
+            if (scenarioType == "puzzle") {
+                getline(ss, puzzleType, ',');
+                getline(ss, puzzleDescription, ',');
+                getline(ss, correctAnswer, ',');
+
+            }
+
             try {
                 int scenarioId = stoi(id);
                 int next1 = stoi(nextScenario1);
@@ -49,6 +55,8 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
 
                 if (scenarioType == "normal") {
                     scenarios.push_back(new Scenario(scenarioId, scenarioType, scenarioDescription, choice1, next1, choice2, next2));
+                } else if (scenarioType == "puzzle") {
+                    scenarios.push_back(new Puzzle(scenarioId, scenarioType, scenarioDescription, choice1, next1, choice2, next2, puzzleType, puzzleDescription, correctAnswer));
                 }
             } catch (const invalid_argument& e) {
                 cerr << "Invalid number in line: " << line << endl;
@@ -60,44 +68,27 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
     return scenarios;
 }
 
-vector<Puzzle*> Game::load_puzzles(string fileName) {
-    vector<Puzzle*> puzzles;
-    fstream file(fileName);
 
-    if (!file) {
-        cerr << "Error opening file: " << fileName << endl;
-    }
-    else {
-        string line;
-        getline(file, line);
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string id, puzzleType, description, correctAnswer;
 
-            getline(ss, id, ',');
-            getline(ss, puzzleType, ',');
-            getline(ss, description, ',');
-            getline(ss, correctAnswer, ',');
-
-            try {
-                int puzzleId = stoi(id);
-                puzzles.push_back(new Puzzle(puzzleId, "puzzle", description, "", 0, "", 0, puzzleType, correctAnswer));
-            } catch (const invalid_argument& e) {
-                cerr << "Invalid number in line: " << line << endl;
-            }
+Scenario* Game::getScenarioById(int id) {
+    for (auto* scenario : scenarios) {
+        if (scenario->getScenarioId() == id) {
+            return scenario;
         }
-        file.close();
     }
-
-    return puzzles;
+    return nullptr;
 }
-void Game::startGame(Player player) {
-    int currentScenarioId = player.getCurrentScenarioId();
 
-        for (auto scenario : scenarios) {
-            scenario->run_scenario(player);
+
+void Game::startGame(Player player) {
+
+    while (true) {
+        Scenario* scenario = getScenarioById(player.getCurrentScenarioId());
+        if (!scenario) {
+            cout << "Invalid scenario ID. Game over!" << endl;
+            break;
         }
-        for (auto* puzzle : puzzles) {
-            puzzle->run_scenario(player);
-        }
+
+        scenario->run_scenario(player);
     }
+}

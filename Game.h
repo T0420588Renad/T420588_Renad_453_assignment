@@ -18,15 +18,12 @@ class Game {
 
 private:
     vector<Scenario*> scenarios;
-    vector<Puzzle*> puzzles;
-    //vector<Item*> items;
-    //vector<Combat*> combat;
 
 public:
     Game();
     static vector<Scenario*> load_scenarios(string fileName);
-    static vector<Puzzle*> load_puzzles(string fileName);
     void startGame(Player player);
+    Scenario* getScenarioById(int id);
 
 };
 #endif //GAME_H

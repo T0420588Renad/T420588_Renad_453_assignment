@@ -37,6 +37,7 @@ int Player::getCurrentScenarioId() {
 }
 
 
+
 // Set Methods
 void Player::setHealth(int health) {
     player_health = health;
@@ -71,6 +72,7 @@ void Player::displayStats() {
 void Player::setCurrentScenarioId(int scenarioId) {
     currentScenarioId = scenarioId;
 }
+
 
 
 

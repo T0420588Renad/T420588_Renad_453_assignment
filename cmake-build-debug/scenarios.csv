@@ -1,3 +1,3 @@
-Id,scenarioType,scenarioDescription,choice1,NextScenario1,Choice2,NextScenario2
-1,normal,You are at a fork in the road.,Take the left path,2,Take the right path,3
-2,puzzle,A troll approaches you with a riddle,Talk to it,4,Run away from it,5
+Id,scenarioType,scenarioDescription,choice1,NextScenario1,choice2,NextScenario2,puzzleType,puzzleDescription,correctAnswer
+1,normal,You are at a fork in the road.,Take the left path,2,Take the right path,3,,,,,
+2,puzzle,A troll approaches you with a riddle,Talk to it,4,Run away from it,5,riddle,What has keys but can't open locks?,piano

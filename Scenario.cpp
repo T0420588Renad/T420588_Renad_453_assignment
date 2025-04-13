@@ -13,7 +13,10 @@
 using namespace std;
 
 // Constructor
-Scenario::Scenario(int id, string type, string desc, string ch1, int next1, string ch2, int next2): scenarioId(id), scenarioType(type), description(desc), choice1(ch1), nextScenario1(next1), choice2(ch2), nextScenario2(next2) {}
+Scenario::Scenario(int id, string type, string desc, string ch1, int next1, string ch2, int next2): scenarioId(id), scenarioType(type), description(desc), choice1(ch1), nextScenario1(next1), choice2(ch2), nextScenario2(next2){}
+
+
+Scenario::Scenario(int id, string type, string desc, string ch1, int next1, string ch2, int next2, string ptype,string puzzleDesc, string answer): scenarioId(id), scenarioType(type), description(desc), choice1(ch1), nextScenario1(next1), choice2(ch2), nextScenario2(next2), puzzleType(ptype), puzzleDescription(puzzleDesc), correctAnswer(answer){}
 
 string Scenario::getDescription() {
     return description;
@@ -33,11 +36,16 @@ int Scenario::getNextScenario2() {
 int Scenario::getScenarioId() {
     return scenarioId;
 }
+string Scenario::getScenarioType() {
+    return scenarioType;
+}
+
+
+
 
 void Scenario::run_scenario(Player &player) {
-    cout << description << endl;
 
-    if (scenarioType == "normal") {
+        cout << description << endl;
         cout << "1. " << choice1 << endl;
         cout << "2. " << choice2 << endl;
 
@@ -60,7 +68,12 @@ void Scenario::run_scenario(Player &player) {
         }
     }
 
-}
+
+
+
+
+
+
 
 
 

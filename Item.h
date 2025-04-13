@@ -24,7 +24,6 @@ private:
 public:
     Item(int id, string type, string desc, string ch1, int next1, string ch2, int next2, string name, int hEffect, int aEffect, int dEffect);
 
-    //vector<Scenario*> load_scenarios(string fileName);
     void run_scenario(Player &player);
     void collect_items(Player &player);
 
