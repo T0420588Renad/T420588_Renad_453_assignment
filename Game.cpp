@@ -22,16 +22,17 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
     vector<Scenario*> scenarios;
     fstream file(fileName);
 
-
     if (!file) {
         cerr << "Error opening file: " << fileName << endl;
     }
     else {
         string line;
         getline(file, line);
+
         while (getline(file, line)) {
             stringstream ss(line);
-            string id, scenarioType, scenarioDescription, choice1, nextScenario1, choice2, nextScenario2, puzzleType, puzzleDescription, correctAnswer;
+            string id, scenarioType, scenarioDescription, choice1, nextScenario1, choice2, nextScenario2;
+            string puzzleType, puzzleDescription, correctAnswer, itemName, healthEffect, attackEffect, defenseEffect;
 
             getline(ss, id, ',');
             getline(ss, scenarioType, ',');
@@ -41,24 +42,34 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
             getline(ss, choice2, ',');
             getline(ss, nextScenario2, ',');
 
-            if (scenarioType == "puzzle") {
-                getline(ss, puzzleType, ',');
-                getline(ss, puzzleDescription, ',');
-                getline(ss, correctAnswer, ',');
+            getline(ss, puzzleType, ',');
+            getline(ss, puzzleDescription, ',');
+            getline(ss, correctAnswer, ',');
 
-            }
+            getline(ss, itemName, ',');
+            getline(ss, healthEffect, ',');
+            getline(ss, attackEffect, ',');
+            getline(ss, defenseEffect, ',');
 
             try {
                 int scenarioId = stoi(id);
                 int next1 = stoi(nextScenario1);
                 int next2 = stoi(nextScenario2);
+                //(ChatGPT, 2025)
+                int hEffect = (healthEffect.empty()) ? 0 : stoi(healthEffect);
+                int aEffect = (attackEffect.empty()) ? 0 : stoi(attackEffect);
+                int dEffect = (defenseEffect.empty()) ? 0 : stoi(defenseEffect);
 
                 if (scenarioType == "normal") {
                     scenarios.push_back(new Scenario(scenarioId, scenarioType, scenarioDescription, choice1, next1, choice2, next2));
-                } else if (scenarioType == "puzzle") {
+                }
+                else if (scenarioType == "puzzle") {
                     scenarios.push_back(new Puzzle(scenarioId, scenarioType, scenarioDescription, choice1, next1, choice2, next2, puzzleType, puzzleDescription, correctAnswer));
                 }
-            } catch (const invalid_argument& e) {
+                else if (scenarioType == "item") {
+                    scenarios.push_back(new Item(scenarioId, scenarioType, scenarioDescription, choice1, next1, choice2, next2, itemName, hEffect, aEffect, dEffect));
+                }
+            } catch (invalid_argument e) {
                 cerr << "Invalid number in line: " << line << endl;
             }
         }
@@ -69,7 +80,7 @@ vector<Scenario*> Game::load_scenarios(string fileName) {
 }
 
 
-
+//(ChatGPT, 2025)
 Scenario* Game::getScenarioById(int id) {
     for (auto* scenario : scenarios) {
         if (scenario->getScenarioId() == id) {
@@ -80,8 +91,8 @@ Scenario* Game::getScenarioById(int id) {
 }
 
 
-void Game::startGame(Player player) {
-
+void Game::startGame(Player player, vector<Enemy> enemies) {
+    //(ChatGPT, 2025)
     while (true) {
         Scenario* scenario = getScenarioById(player.getCurrentScenarioId());
         if (!scenario) {
@@ -89,6 +100,6 @@ void Game::startGame(Player player) {
             break;
         }
 
-        scenario->run_scenario(player);
+        scenario->run_scenario(player, enemies);
     }
 }

@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include "Item.h"
 
 using namespace std;
 
@@ -33,10 +34,11 @@ public:
     int getDefensePower() ;
     int getScore();
     int getLives() ;
-    vector<string> getInventory();
+    vector <string>getInventory();
     int getCurrentScenarioId();
 
     // Set Methods
+    void setName(string name);
     void setHealth(int health);
     void setAttackPower(int attackPower);
     void setDefensePower(int defensePower);

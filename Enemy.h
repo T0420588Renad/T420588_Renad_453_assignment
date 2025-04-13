@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ public:
     void setAttackPower(int attackPower);
     void setDefensePower(int defensePower);
     void displayStats();
+    Enemy random_enemy(vector<Enemy>& enemies);
 
     static vector<Enemy> load_enemies(string fileName);
 };

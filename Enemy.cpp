@@ -35,6 +35,12 @@ void Enemy::setAttackPower(int attackPower) {
 void Enemy::setDefensePower(int defensePower) {
     enemy_defensePower = defensePower;
 }
+//(ChatGPT, 2025)
+Enemy Enemy::random_enemy(vector<Enemy> &enemies) {
+    int index = rand() % enemies.size();
+    return enemies[index];
+}
+
 void Enemy::displayStats() {
     cout << "Enemy: " << enemy_name << endl;
     cout << "Health: " << enemy_health << endl;
@@ -43,7 +49,7 @@ void Enemy::displayStats() {
 }
 
 
-vector<Enemy> Enemy::load_enemies(string fileName) {
+vector<Enemy> load_enemies(string fileName) {
     vector<Enemy> enemies;
     fstream file(fileName);
     if (!file) {
@@ -62,8 +68,10 @@ vector<Enemy> Enemy::load_enemies(string fileName) {
             int enemy_health = stoi(health);
             int enemy_attackPower = stoi(attackPower);
             int enemy_defensePower = stoi(defensePower);
-            enemies.emplace_back(name, enemy_health, enemy_attackPower, enemy_defensePower);
+            enemies.push_back(Enemy(name, enemy_health, enemy_attackPower, enemy_defensePower));
         }
     }
+    file.close();
+    return enemies;
 }
 

@@ -4,11 +4,12 @@
 
 #include "Player.h"
 #include <iostream>
+#include "Item.h"
 
 using namespace std;
 
 //Constructor
-Player::Player(string name, int health, int attackPower, int defensePower, int score, int lives, int scenarioId): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score), player_lives(lives), currentScenarioId(scenarioId) {}
+Player::Player(string name, int health, int attackPower, int defensePower, int score, int lives,int scenarioId): player_name(name), player_health(health), player_attackPower(attackPower), player_defensePower(defensePower), player_score(score), player_lives(lives) ,currentScenarioId(scenarioId) {}
 
 // Get Methods
 string Player::getName() {
@@ -39,6 +40,10 @@ int Player::getCurrentScenarioId() {
 
 
 // Set Methods
+void Player::setName(string name) {
+    player_name = name;
+}
+
 void Player::setHealth(int health) {
     player_health = health;
 }

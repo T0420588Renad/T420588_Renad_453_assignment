@@ -1,3 +1,35 @@
-Id,scenarioType,scenarioDescription,choice1,NextScenario1,choice2,NextScenario2,puzzleType,puzzleDescription,correctAnswer
-1,normal,You are at a fork in the road.,Take the left path,2,Take the right path,3,,,,,
-2,puzzle,A troll approaches you with a riddle,Talk to it,4,Run away from it,5,riddle,What has keys but can't open locks?,piano
+Id,scenarioType,scenarioDescription,choice1,NextScenario1,choice2,NextScenario2,puzzleType,puzzleDescription,correctAnswer,itemName,healthEffect,attackEffect,defenseEffect
+1,normal,On your daily stroll you receive an emergency alert from the Hero Association: "Threat level Demon in Sector Z!",Dash toward Sector Z,3,Stop for a snack first,2,,,,,,
+2,puzzle,A street troll disguised as a food vendor blocks your way and won’t let you pass until you answer a riddle.,Humor him and answer,4,Flick him away and keep walking,5,riddle,What has keys but can't open locks?,piano,,,,,
+3,normal,You arrive in Sector Z but it's eerily quiet. No signs of battle or monsters.. yet.,Ask a terrified civilian,4,Inspect the suspiciously quiet alley,5,,,,,,
+4,puzzle,A stone statue shaped like a Class-S hero suddenly animates and quizzes you.,Accept the riddle challenge,6,Smash the statue and move on,5,riddle,What has hands but can't clap?,clock,,,,,
+5,puzzle,An old man in Hero gear says he was once your master. He blocks the path and asks a math puzzle to test you.,Play along and answer,7,Say "Ok" and casually walk past,6,math,What is (12 + 8) * 2?,40,,,,,
+6,puzzle,You find a massive steel door labeled "Limiter Control." A riddle locks it tight.,Solve the anagram to unleash power,8,Ignore it and stick to base-level strength,7,anagram,Unscramble this word: "pealp" (hint: a fruit),apple,,,,,
+7,item,A glowing blade floats mid-air. You sense immense power.,Grab the sword,9,It's probably cursed... move on,10,,,,Sword of Light,0,10,0
+8,item,A vial of glimmering blue fluid sits on a pedestal. A note reads: "Instant S-Class Health Boost.",Drink it,11,No thanks Genos warned you about glowing liquids,9,,,,Healing Potion,20,0,0
+9,combat,You turn a corner and a fierce creature emerges from the alley.,Fight it,13,Run away,14,,,,,,
+10,combat,You face off against a giant creature with stone armor.,Fight it,15,Try to reason with it,16,,,,,,
+11,normal,You stumble upon a hidden path leading to a Hero Association base.,Enter and investigate,17,Turn back and leave,18,,,,,,
+12,combat,A massive mechanical beast stands in your way.,Fight it,19,Evade and sneak around,20,,,,,,
+13,combat,An armored warrior challenges you to a duel.,Accept the challenge,21,Decline and attempt to walk past,22,,,,,,
+14,normal,You hear someone crying for help from behind a building.,Check it out,23,Ignore it and keep moving,24,,,,,,
+15,combat,A group of armed thugs blocks your way preparing for a fight.,Fight them,25,Try to bribe them with a hidden item,26,,,,,,
+16,combat,A towering fire-breathing dragon appears from the shadows.,Fight it,27,Run into the nearby building for shelter,28,,,,,,
+17,normal,You find a mysterious ancient artifact glowing in the dark.,Inspect it closely,29,Leave it alone and move on,30,,,,,,
+18,item,A strange black crystal hovers in front of you pulsing with energy.,Take the crystal,31,Destroy it immediately,32,,,,Dark Crystal,10,5,5
+19,combat,A vicious creature with claws as sharp as swords attacks you.,Fight it,33,Run and take a detour,34,,,,,,
+20,puzzle,A large door blocks your path with a code lock requiring a number sequence.,Solve the code,35,Give up and look for another way,36,number,What comes next in the sequence: 2, 4, 8, 16, 32?,64,,,,,
+21,combat,A warrior in shining armor challenges you to a fight.,Fight it,37,Negotiate for a peaceful resolution,38,,,,,,
+22,normal,A Hero Association officer asks for your help with a mission.,Agree to help,39,Decline and walk away,40,,,,,,
+23,item,A health pack lies on the ground looking too good to be true.,Take it,41,Leave it and continue on,42,,,,Health Pack,30,0,0
+24,combat,A monster with glowing red eyes approaches.,Fight it,43,Run and hide behind a wall,44,,,,,,
+25,puzzle,You find a puzzle box that seems to hold a great power.,Try to solve it,45,Smash it with your fist,46,puzzle,What word is spelled incorrectly in every dictionary?,incorrect,,,,,
+26,combat,A giant rock-skinned creature lumbers toward you.,Fight it,47,Dodge its attacks and run away,48,,,,,,
+27,combat,A fierce winged beast swoops down to attack.,Fight it,49,Run and hide under a bridge,50,,,,,,
+28,item,A mysterious scroll with ancient symbols lies before you.,Read it,51,Ignore it and move on,52,,,,Ancient Scroll,0,5,10
+29,normal,You hear explosions in the distance signaling an attack on the city.,Rush toward the noise,53,Stay back and wait for reinforcements,54,,,,,,
+30,combat,You encounter a monstrous creature with glowing red eyes and razor-sharp claws.,Fight it,55,Try to run,56,,,,,,
+31,combat,A monstrous wolf charges at you teeth bared.,Fight it,57,Run and climb a tree,58,,,,,,
+32,puzzle,A locked door stands between you and your destination with a series of symbols on it.,Solve the symbols,59,Force the door open,60,symbols,What symbol is associated with the sun?,circle,,,,,
+33,combat,A group of enemies surrounded you in a tight alley.,Fight them,61,Look for an escape route,62,,,,,,
+34,item,A strange device hums in front of you glowing brightly.,Take it,63,Leave it and move on,64,,,,Mystic Device,0,5,0

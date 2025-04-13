@@ -8,9 +8,8 @@
 #include <string>
 #include "Scenario.h"
 #include "Player.h"
-#include "Puzzle.h"
-#include "Combat.h"
-#include "Item.h"
+#include "Enemy.h"
+
 
 using namespace std;
 
@@ -22,8 +21,10 @@ private:
 public:
     Game();
     static vector<Scenario*> load_scenarios(string fileName);
-    void startGame(Player player);
+    void startGame(Player player, vector<Enemy> enemies);
     Scenario* getScenarioById(int id);
+    void save_game(Player player, int currentScenarioId);
+    bool load_game(Player player, int currentScenarioId);
 
 };
 #endif //GAME_H

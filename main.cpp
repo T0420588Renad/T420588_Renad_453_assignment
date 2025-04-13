@@ -15,6 +15,8 @@ using namespace std;
 
 int main() {
     Game game;
+    vector<Enemy> load_enemies(string filename);
+    vector<Enemy> enemies = load_enemies("enemy.csv");
     string name;
     bool validInput = false;
     while (!validInput) {
@@ -32,10 +34,11 @@ int main() {
 
     cout << "Welcome " << player.getName() << "! Your adventure begins now!" << endl << endl;
     player.displayStats();
-    game.startGame(player);
+    cout << endl << endl;
+    game.startGame(player, enemies);
 
 
-    //cout << "Your final score is: " << player.getScore() << endl;
+    cout << "Your final score is: " << player.getScore() << endl;
 
     return 0;
 

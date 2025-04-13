@@ -8,6 +8,8 @@
 #include "Scenario.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -19,9 +21,9 @@ private:
 public:
     Combat(int id, string type, string desc, string ch1, int next1, string ch2, int next2, Enemy tempEnemy);
 
-    //vector<Scenario*> load_scenarios(string fileName);
-    void run_scenario(Player &player);
-    void combat_scenario(Player &player);
+    void run_scenario(Player& player, vector<Enemy>& enemies);
+    void combat_scenario(Player player, Enemy enemy);
+    static Enemy random_enemy(vector<Enemy> enemies);
 
 };
 

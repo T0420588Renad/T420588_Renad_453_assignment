@@ -6,7 +6,15 @@
 #define SCENARIO_H
 
 #include <string>
-#include "Player.h"
+#include <vector>
+//#include "Player.h"
+//#include "Enemy.h"
+
+class Player;
+class Enemy;
+class Combat;
+class Item;
+class Game;
 
 using namespace std;
 
@@ -29,6 +37,7 @@ public:
     // Constructor
     Scenario(int id, string type, string desc, string ch1, int next1, string ch2, int next2);
     Scenario(int id, string type, string desc, string ch1, int next1, string ch2, int next2, string ptype,string puzzleDescription, string answer);
+
     virtual string getDescription();
     virtual string getChoice1();
     virtual string getChoice2();
@@ -36,7 +45,7 @@ public:
     int getNextScenario2();
     virtual int getScenarioId();
     string getScenarioType();
-    virtual void run_scenario(Player &player);
+    virtual void run_scenario(Player& player, vector<Enemy>& enemies);
 
 
 
